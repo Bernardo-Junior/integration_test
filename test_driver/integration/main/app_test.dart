@@ -35,7 +35,7 @@ void main() {
     //   expect(await driver!.getText(textFinder), 'Hello World');
     // });
 
-    test('enter text in inputText', () async {
+    test('add text in the text field', () async {
       await driver!.tap(textInputFinder);
 
       await driver!.enterText('Bernardo', timeout: Duration(seconds: 20));
