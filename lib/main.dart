@@ -1,6 +1,6 @@
+import 'package:app_teste/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import "package:flutter_driver/driver_extension.dart";
 
 void main() {
   runApp(MyApp());
@@ -49,6 +49,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  TextEditingController _inputController = TextEditingController();
 
   void _incrementCounter() {
     setState(() {
@@ -103,6 +104,32 @@ class _MyHomePageState extends State<MyHomePage> {
               key: Key('counter'),
               style: Theme.of(context).textTheme.headline4,
             ),
+            Container(
+              width: 300,
+              margin: EdgeInsets.only(bottom: 30, top: 30),
+              child: TextField(
+                key: Key('textInput'),
+                controller: _inputController,
+                onSubmitted: (_) {},
+                textCapitalization: TextCapitalization.words,
+                decoration: const InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: 'Título',
+                  hintText: 'Título',
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => HomeApp(),
+                  ),
+                );
+              },
+              key: Key('btnNavigate'),
+              child: Text("NAVEGAR"),
+            )
           ],
         ),
       ),
