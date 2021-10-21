@@ -21,6 +21,11 @@ void main() {
       }
     });
 
+    test('check flutter driver health', () async {
+      Health health = await driver!.checkHealth();
+      print(health.status);
+    });
+
     test('starts at 0', () async {
       expect(await driver!.getText(counterTextFinder), "0");
     });
@@ -50,8 +55,16 @@ void main() {
     test('navigate for home', () async {
       await driver!.tap(buttonNavigateFinder);
       final textHomeFinder = find.byValueKey('textHello');
+      final buttonHomeFinder = find.byValueKey('ButtonHome');
+      await driver!.tap(buttonHomeFinder);
 
       expect(await driver!.getText(textHomeFinder), "Hello World");
+    });
+
+    test('find text alert', () async {
+      final textAlertFinder = find.byValueKey('TextAlert');
+
+      expect(await driver!.getText(textAlertFinder), 'ALERTA');
     });
   });
 }
