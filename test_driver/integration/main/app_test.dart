@@ -42,16 +42,16 @@ void main() {
 
       await driver!.waitFor(find.text('Bernardo'));
 
-      await driver!.enterText('Bernardo de Oliveira Miranda Junior',
-          timeout: Duration(seconds: 2000));
+      await driver!.enterText('Bernardo de Oliveira Miranda Junior');
 
       await driver!.waitFor(find.text('Bernardo de Oliveira Miranda Junior'));
     });
 
     test('navigate for home', () async {
       await driver!.tap(buttonNavigateFinder);
+      final textHomeFinder = find.byValueKey('textHello');
 
-      await driver!.getWidgetDiagnostics(buttonNavigateFinder);
+      expect(await driver!.getText(textHomeFinder), "Hello World");
     });
-  }, timeout: Timeout(Duration(seconds: 4000)));
+  });
 }
