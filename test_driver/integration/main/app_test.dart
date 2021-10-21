@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
@@ -12,8 +14,16 @@ void main() {
     FlutterDriver? driver;
 
     setUpAll(() async {
+      new Directory('screenshots').create();
       driver = await FlutterDriver.connect();
     });
+
+    takeScreenshot(FlutterDriver driver, String path) async {
+      final List<int> pixels = await driver.screenshot();
+      final File file = new File(path);
+      await file.writeAsBytes(pixels);
+      print(path);
+    }
 
     tearDownAll(() async {
       if (driver != null) {
@@ -44,10 +54,11 @@ void main() {
       await driver!.tap(textInputFinder);
 
       await driver!.enterText('Bernardo', timeout: Duration(seconds: 20));
-
+      await takeScreenshot(driver!, 'screenshots/entered_text_first_name.png');
       await driver!.waitFor(find.text('Bernardo'));
 
       await driver!.enterText('Bernardo de Oliveira Miranda Junior');
+      await takeScreenshot(driver!, 'screenshots/entered_text_full_name.png');
 
       await driver!.waitFor(find.text('Bernardo de Oliveira Miranda Junior'));
     });
@@ -57,6 +68,7 @@ void main() {
       final textHomeFinder = find.byValueKey('textHello');
       final buttonHomeFinder = find.byValueKey('ButtonHome');
       await driver!.tap(buttonHomeFinder);
+      await takeScreenshot(driver!, 'screenshots/press_button_home.png');
 
       expect(await driver!.getText(textHomeFinder), "Hello World");
     });
