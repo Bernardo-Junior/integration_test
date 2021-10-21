@@ -21,10 +21,10 @@ void main() {
       }
     });
 
-    test('check flutter driver health', () async {
-      Health health = await driver!.checkHealth();
-      print(health.status);
-    });
+    // test('check flutter driver health', () async {
+    //   Health health = await driver!.checkHealth();
+    //   print(health.status);
+    // });
 
     test('starts at 0', () async {
       expect(await driver!.getText(counterTextFinder), "0");
